@@ -1,0 +1,79 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+        <span class="icon"></span>
+        <span class="sf-toolbar-value">{{ collector.callTime }}</span>
+        <span class="sf-toolbar-label">ms</span>
+    {% endset %}
+
+    {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>Call time</b>
+            <span>{{ collector.callTime }} ms</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Calls</b>
+            <span class="sf-toolbar-status">{{ collector.callCount }}</span>
+        </div>
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': true }) }}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon"></span>
+        <strong>Bridge</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+
+    <h2>Calls</h2>
+
+    <div class="metrics">
+        <div class="metric">
+            <span class="value">{{ collector.callTime }} <span class="unit">ms</span></span>
+            <span class="label">Total execution time</span>
+        </div>
+
+        <div class="metric">
+            <span class="value">{{ collector.callCount }}</span>
+            <span class="label">Total call count</span>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>Resource</th>
+                <th>Action</th>
+                <th>Execution time</th>
+                <th>Arguments</th>
+            </tr>
+        </thead>
+
+        {% for index, call in collector.calls %}
+            <tr>
+                <td>{{ call['service_name'] }}</td>
+                <td>{{ call['resource_name'] }}</td>
+                <td>{{ call['action_name'] }}</td>
+                <td class="font-normal">{{ call['execution_time'] }} ms</td>
+                <td>{{ call['arguments']|yaml_dump }}</td>
+            </tr>
+            {% if call['extra'] is defined %}
+            <tr>
+                <td colspan="5" class="font-normal">
+                    <a class="btn-link text-small sf-toggle" data-toggle-selector="#context-extra-{{ index }}" data-toggle-alt-content="Hide extra information" data-toggle-original-content="Show extra information">Show extra information</a>
+
+                    <div id="context-extra-{{ index }}" class="context sf-toggle-content">
+                        <code>{{ call['extra']|yaml_dump }}</code>
+                    </div>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}

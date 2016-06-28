@@ -1,0 +1,27 @@
+{
+    "name": "transfer/bridge-bundle",
+    "type": "symfony-bundle",
+    "description": "Transfer Bridge Symfony 2/3 Bundle",
+    "keywords": ["transfer", "bridge", "bundle"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Valentin Jonovs",
+            "email": "valentin@jonovs.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "transfer/bridge": "1.0.x-dev",
+        "symfony/dependency-injection": "~2.6,>=2.6.2|~3.0",
+        "symfony/config": "~2.4|~3.0",
+        "symfony/http-kernel": "~2.7|~3.0",
+        "symfony/framework-bundle": "~2.7|~3.0"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^4.7"
+    },
+    "autoload": {
+        "psr-4": { "Bridge\\Bundle\\": "" }
+    }
+}

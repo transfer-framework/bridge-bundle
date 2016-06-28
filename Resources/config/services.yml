@@ -1,0 +1,24 @@
+imports:
+  - { resource: 'event_subscribers.yml' }
+
+services:
+  bridge.event_dispatcher:
+    class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+    arguments:
+      - '@service_container'
+
+  bridge.registry:
+    class: Bridge\Registry
+    arguments:
+      - '@bridge.event_dispatcher'
+
+  bridge.activity_collector:
+    class: Bridge\Bundle\DataCollector\ActivityCollector
+    arguments:
+      - '@bridge.event_subscriber.action_activity'
+    public: false
+    tags:
+      -
+        name:      data_collector
+        template: 'BridgeBundle:Profiler:activity'
+        id:       'bridge.activity_collector'

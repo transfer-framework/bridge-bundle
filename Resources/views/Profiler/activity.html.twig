@@ -58,18 +58,18 @@
         {% for index, call in collector.calls %}
             <tr>
                 <td>{{ call['service_name'] }}</td>
-                <td>{{ call['resource_name'] }}</td>
+                <td>{{ call['group_name'] }}</td>
                 <td>{{ call['action_name'] }}</td>
                 <td class="font-normal">{{ call['execution_time'] }} ms</td>
                 <td>{{ call['arguments']|yaml_dump }}</td>
             </tr>
-            {% if call['extra'] is defined %}
+            {% if call['extra_data'] is defined %}
             <tr>
                 <td colspan="5" class="font-normal">
                     <a class="btn-link text-small sf-toggle" data-toggle-selector="#context-extra-{{ index }}" data-toggle-alt-content="Hide extra information" data-toggle-original-content="Show extra information">Show extra information</a>
 
                     <div id="context-extra-{{ index }}" class="context sf-toggle-content">
-                        <code>{{ call['extra']|yaml_dump }}</code>
+                        <code>{{ call['extra_data']|yaml_dump }}</code>
                     </div>
                 </td>
             </tr>

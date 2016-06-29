@@ -1,0 +1,14 @@
+services:
+    bridge.command.list:
+        class: Bridge\Console\Command\ListCommand
+        calls:
+            - [setName, ["bridge:list"]]
+        tags:
+            -  { name: console.command }
+
+    bridge.command.execute:
+        class: Bridge\Console\Command\ExecuteCommand
+        calls:
+            - [setName, ["bridge:execute"]]
+        tags:
+            -  { name: console.command }

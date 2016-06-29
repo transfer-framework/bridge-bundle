@@ -37,6 +37,9 @@ class CommandListener
         return array(
             'bridge:list',
             'bridge:execute',
+            'bridge:cache:pools',
+            'bridge:cache:clear',
+            'bridge:cache:remove',
         );
     }
 

@@ -1,0 +1,3 @@
+services:
+  bridge.cache.pool.default:
+    class: Symfony\Component\Cache\Adapter\FilesystemAdapter

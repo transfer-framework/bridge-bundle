@@ -54,7 +54,6 @@ class BridgeExtension extends Extension
 
             $serviceDefinition = $this->createComponentDefinition($serviceName, $service['class'], $service['options']);
             $serviceDefinition->addMethodCall('setEventDispatcher', array(new Reference('bridge.event_dispatcher')));
-            $serviceDefinition->addMethodCall('addEventSubscriber', array(new Reference('bridge.event_subscriber.action_activity')));
             $serviceDefinition->addMethodCall('setRegistry', array(new Reference('bridge.registry')));
 
             $this->generateGroups($service['groups'], $serviceId, $serviceDefinition, $container);

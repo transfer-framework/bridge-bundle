@@ -1,5 +1,6 @@
 imports:
-  - { resource: 'event_subscribers.yml' }
+  - { resource: commands.yml }
+  - { resource: event_subscribers.yml }
 
 services:
   bridge.event_dispatcher:
@@ -22,3 +23,12 @@ services:
         name:      data_collector
         template: 'BridgeBundle:Profiler:activity'
         id:       'bridge.activity_collector'
+
+  # Listeners
+  bridge.event_listener.command_listener:
+    class: Bridge\Bundle\EventListener\CommandListener
+    arguments:
+      - "@bridge.registry"
+    tags:
+      - { name: kernel.event_listener, event: console.command, method: command }
+

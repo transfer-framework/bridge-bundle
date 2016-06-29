@@ -1,17 +1,22 @@
 imports:
   - { resource: commands.yml }
   - { resource: event_subscribers.yml }
+  - { resource: cache.yml }
 
 services:
   bridge.event_dispatcher:
     class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
     arguments:
       - '@service_container'
+    calls:
+      - [addSubscriber, ['@bridge.event_subscriber.action_activity']]
 
   bridge.registry:
     class: Bridge\Registry
     arguments:
       - '@bridge.event_dispatcher'
+    calls:
+      - [addCachePool, ['default', '@bridge.cache.pool.default']]
 
   bridge.activity_collector:
     class: Bridge\Bundle\DataCollector\ActivityCollector

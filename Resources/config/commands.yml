@@ -12,3 +12,24 @@ services:
             - [setName, ["bridge:execute"]]
         tags:
             -  { name: console.command }
+
+    bridge.command.cache.pools:
+        class: Bridge\Console\Command\CachePoolsCommand
+        calls:
+            - [setName, ["bridge:cache:pools"]]
+        tags:
+            -  { name: console.command }
+
+    bridge.command.cache.clear:
+        class: Bridge\Console\Command\CacheClearCommand
+        calls:
+            - [setName, ["bridge:cache:clear"]]
+        tags:
+            -  { name: console.command }
+
+    bridge.command.cache.remove:
+        class: Bridge\Console\Command\CacheRemoveCommand
+        calls:
+            - [setName, ["bridge:cache:remove"]]
+        tags:
+            -  { name: console.command }

@@ -2,10 +2,5 @@ services:
   bridge.event_subscriber.action_activity:
     class: Bridge\EventSubscriber\ActionActivitySubscriber
 
-  bridge.event_subscriber.registry_setter:
-      class: Bridge\EventSubscriber\RegistrySetter
-      arguments:
-        - '@bridge.registry'
-
   bridge.event_subscriber.response_converter:
     class: Bridge\EventSubscriber\ResponseConverter

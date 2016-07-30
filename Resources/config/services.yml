@@ -11,6 +11,9 @@ services:
     calls:
       - [addSubscriber, ['@bridge.event_subscriber.action_activity']]
 
+  bridge:
+    alias: bridge.registry
+
   bridge.registry:
     class: Bridge\Registry
     arguments:

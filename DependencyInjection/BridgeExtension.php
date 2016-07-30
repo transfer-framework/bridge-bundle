@@ -123,6 +123,44 @@ class BridgeExtension extends Extension
      */
     private function createComponentDefinition($name, $class, $options = array())
     {
-        return new Definition($class, array($name, $options));
+        return new Definition($class, array($name, $this->hydrateOptions($options)));
+    }
+
+    /**
+     * @param mixed $options
+     *
+     * @return mixed
+     */
+    private function hydrateOptions($options)
+    {
+        $hydratedOptions = array();
+
+        foreach ($options as $key => $value) {
+            if (is_array($value)) {
+                $hydratedOptions[$key] = $this->hydrateOptions($value);
+            } else {
+                if (preg_match('/^@.+$/', $value)) {
+                    $hydratedOptions[$key] = $this->getReference($value);
+                } else {
+                    $hydratedOptions[$key] = $value;
+                }
+            }
+        }
+
+        return $hydratedOptions;
+    }
+
+    /**
+     * Returns service reference object.
+     *
+     * @param string $serviceId Prefixed with '@'
+     *
+     * @return Reference
+     */
+    private function getReference($serviceId)
+    {
+        $serviceId = substr($serviceId, 1);
+
+        return new Reference($serviceId);
     }
 }
